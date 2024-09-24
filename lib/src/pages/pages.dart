@@ -1,0 +1,1 @@
+export '../product/presentation/pages.dart';
