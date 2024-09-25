@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_test/src/product/bloc/bloc.dart';
+
 class DetailProductView extends StatefulWidget {
   const DetailProductView({super.key, this.id});
   final int? id;
@@ -12,7 +13,7 @@ class DetailProductView extends StatefulWidget {
 
 class _DetailProductViewState extends State<DetailProductView> {
   @override
-  void initState(){
+  void initState() {
     super.initState();
     setState(() {
       context.read<ProductBloc>().add(GetDetailProductEvent(id: widget.id!));
@@ -26,7 +27,10 @@ class _DetailProductViewState extends State<DetailProductView> {
         title: Text('Detail Product'),
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            setState(() {
+              context.read<ProductBloc>().add(GetProductEvent());
+              Navigator.pop(context);
+            });
           },
           icon: Icon(Icons.arrow_back_ios_new),
         ),
@@ -38,7 +42,7 @@ class _DetailProductViewState extends State<DetailProductView> {
               child: CircularProgressIndicator(),
             );
           }
-          if(state is DetailProductLoadedState) {
+          if (state is DetailProductLoadedState) {
             final product = state.product;
             return Text('hello world: ${product.title}');
           }
@@ -71,7 +75,7 @@ class _DetailProductViewState extends State<DetailProductView> {
               ),
             );
           }
-        return SizedBox();
+          return SizedBox();
         },
       ),
     );
