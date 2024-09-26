@@ -44,6 +44,19 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           final message = handleExceptionWithMessage(e);
           emit(DetailProductLoadingFailedState(errorMessage: message));
         }
+      } else if (event is PutProductEvent) {
+        emit(PutProductLoadingState());
+        try {
+          final product = await productRepository.putProduct(event.id, event.title);
+          if(product == null) {
+            emit(PutProductEmptyState(emptyMessage: 'Data tidak ditemukan'));
+          } else {
+            emit(PutProductLoadedState(product: product));
+          }
+        } catch (e) {
+          final message = handleExceptionWithMessage(e);
+          emit(PutProductLoadingFailedState(errorMessage: message));
+        }
       }
     });
   }

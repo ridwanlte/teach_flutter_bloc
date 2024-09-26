@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_test/src/product/bloc/bloc.dart';
 
+import '../components/components.dart';
+
 class DetailProductView extends StatefulWidget {
   const DetailProductView({super.key, this.id});
   final int? id;
@@ -44,7 +46,35 @@ class _DetailProductViewState extends State<DetailProductView> {
           }
           if (state is DetailProductLoadedState) {
             final product = state.product;
-            return Text('hello world: ${product.title}');
+            // return Text('hello world: ${product.title}');
+            return Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text('${product.title.toString()}'),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        showModalBottomSheet(
+                          isScrollControlled: true,
+                          context: context,
+                          builder: (context) {
+                            return Padding(
+                              padding: MediaQuery.of(context).viewInsets,
+                              child: ProductPreview(product: product),
+                            );
+                          },
+                        );
+                      });
+                    },
+                    child: Text('Press Button'),
+                  )
+                ],
+              ),
+            );
           }
           if (state is DetailProductEmptyState) {
             return Center(

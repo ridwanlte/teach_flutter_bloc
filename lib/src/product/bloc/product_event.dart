@@ -14,3 +14,10 @@ class GetDetailProductEvent extends ProductEvent {
 
   GetDetailProductEvent({required this.id});
 }
+
+class PutProductEvent extends ProductEvent {
+  final int? id;
+  final String? title;
+
+  PutProductEvent({required this.id, required this.title});
+}

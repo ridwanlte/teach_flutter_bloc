@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_test/src/product/bloc/product_bloc.dart';
+import 'package:flutter_bloc_test/src/product/data/models/product_model/product.dart';
 
 import '../product/bloc/bloc.dart';
 
 class ActionButton extends StatefulWidget {
-  const ActionButton({super.key, required this.size,});
+  const ActionButton({super.key, required this.size, required this.product,});
   final Size size;
+  final Product product;
 
   @override
   State<ActionButton> createState() => _ActionButtonState();
@@ -17,9 +19,9 @@ class _ActionButtonState extends State<ActionButton> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // setState(() {
-        //   context.read<ProductBloc>().add(GetDetailProductEvent());
-        // });
+        setState(() {
+          context.read<ProductBloc>().add(PutProductEvent(id: widget.product.id, title: widget.product.title));
+        });
       },
       child: Container(
         width: widget.size.width,

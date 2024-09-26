@@ -75,7 +75,7 @@ class ProductPreview extends StatelessWidget {
             const SizedBox(
               height: 10.0,
             ),
-            ActionButton(size: size)
+            ActionButton(size: size, product: product)
           ],
         ),
       ),

@@ -49,3 +49,24 @@ class DetailProductLoadingFailedState extends ProductState {
   const DetailProductLoadingFailedState({required this.errorMessage});
   final String errorMessage;
 }
+
+
+class PutProductLoadingState extends ProductState {}
+
+class PutProductLoadedState extends ProductState {
+  const PutProductLoadedState({required this.product});
+
+  final Product product;
+  @override
+  Map<Object, Object> get putProp => {'product':product};
+}
+
+class PutProductEmptyState extends ProductState {
+  const PutProductEmptyState({required this.emptyMessage});
+  final String emptyMessage;
+}
+
+class PutProductLoadingFailedState extends ProductState {
+  const PutProductLoadingFailedState({required this.errorMessage});
+  final String errorMessage;
+}

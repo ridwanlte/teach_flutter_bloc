@@ -34,4 +34,21 @@ class ProductRepository {
       rethrow;
     }
   }
+
+  Future putProduct(int? id, String? title) async {
+    try {
+      final response = await DataProvider.putRequest(endpoint: "product/$id", body: {
+        'title': title
+      });
+      log("put data: ${response.statusCode}: ${response.body}");
+      if(response.statusCode == 200) {
+        final data = Product.fromJson(json.decode(response.body));
+        return data;
+      } else {
+        throw "Error loading put product";
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
